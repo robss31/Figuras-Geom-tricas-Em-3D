@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0  shrink-to-fit=no">
+    <meta name="description" content="Audio basics demo for Web Audio API" />
+    <title>Figuras Geometricas - Three.js</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script type="module">
+
+        import * as THREE from "./three.module.js";
+        import { OrbitControls } from './OrbitControls.js';
+
+
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x2a3b4c);
+
+        const camera = new THREE.PerspectiveCamera(
+            75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+
+        // MUSICA
+        var listener = new THREE.AudioListener();
+        var sound = new THREE.Audio(listener);
+        var audioLoader = new THREE.AudioLoader();
+        audioLoader.load('./som/musica.mp3', function (buffer) {
+            sound.setBuffer(buffer);
+            sound.setLoop(true);
+            sound.setVolume(0.01);
+            sound.play();
+        });
+
+        const geometry = new THREE.BoxGeometry(3, 3, 3, 5, 5, 5);
+        const material = new THREE.MeshBasicMaterial({ color: 0xEEE8A, wireframe: true });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+
+        // MUSICA
+        var listener = new THREE.AudioListener();
+        var sound = new THREE.Audio(listener);
+        var audioLoader = new THREE.AudioLoader();
+        audioLoader.load('./som/musica.mp3', function (buffer) {
+            sound.setBuffer(buffer);
+            sound.setLoop(true);
+            sound.setVolume(8);
+            sound.play();
+        });
+
+
+        //1
+        var circle = new THREE.Mesh(new THREE.CircleGeometry(2), new THREE.MeshBasicMaterial({ color: 0xFF0000, wireframe: true }));
+        circle.position.x = 5;
+        scene.add(circle);
+        //2
+        var circle = new THREE.Mesh(new THREE.CircleGeometry(2), new THREE.MeshBasicMaterial({ color: 0xFF0000, wireframe: true }));
+        circle.position.x = -5;
+        scene.add(circle);
+        //3
+        var circle = new THREE.Mesh(new THREE.CapsuleGeometry(1, 3, 32, 33), new THREE.MeshBasicMaterial({ color: 0xFFFF00, wireframe: true }));
+        circle.position.y = -5;
+        scene.add(circle);
+        //4
+        var circle = new THREE.Mesh(new THREE.CapsuleGeometry(1, 3, 32, 33), new THREE.MeshBasicMaterial({ color: 0xFFFF00, wireframe: true }));
+        circle.position.y = 5;
+        scene.add(circle);
+
+        var circle = new THREE.Mesh(new THREE.ConeGeometry(1, 2.5, 32, 5), new THREE.MeshBasicMaterial({ color: 0x00BFFF, wireframe: true }));
+        circle.position.y = 10;
+        scene.add(circle);
+
+        var circle = new THREE.Mesh(new THREE.ConeGeometry(1, 2.5, 32, 5), new THREE.MeshBasicMaterial({ color: 0x00BFFF, wireframe: true }));
+        circle.position.y = -10;
+        scene.add(circle);
+        //5
+        var circle = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 5, 19), new THREE.MeshBasicMaterial({ color: 0x00FF00, wireframe: true }));
+        circle.position.z = -5;
+        scene.add(circle);
+        //6
+        var circle = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 5, 19), new THREE.MeshBasicMaterial({ color: 0x00FF00, wireframe: true }));
+        circle.position.z = 5;
+        scene.add(circle);
+        //7
+        var circle = new THREE.Mesh(new THREE.SphereGeometry(2), new THREE.MeshBasicMaterial({ color: 0xFF7F50, wireframe: true }));
+        circle.position.z = -10;
+        scene.add(circle);
+        //8
+        var circle = new THREE.Mesh(new THREE.SphereGeometry(2), new THREE.MeshBasicMaterial({ color: 0xFF7F50, wireframe: true }));
+        circle.position.z = 10;
+        scene.add(circle);
+        //9
+        var circle = new THREE.Mesh(new THREE.TorusGeometry(0, 32, 32), new THREE.MeshBasicMaterial({ color: 0xF000000, wireframe: true }));
+        circle.position.y = 0;
+        scene.add(circle);
+        //10       
+
+        var circle = new THREE.Mesh(new THREE.RingGeometry(2, 0.8, 32, 5), new THREE.MeshBasicMaterial({ color: 0xBDB76B, wireframe: true }));
+        circle.position.x = -10;
+        scene.add(circle);
+
+        var circle = new THREE.Mesh(new THREE.RingGeometry(2, 0.8, 32, 5), new THREE.MeshBasicMaterial({ color: 0xBDB76B, wireframe: true }));
+        circle.position.x = 10;
+        scene.add(circle);
+
+        camera.position.z = 20;
+
+        var controls = new OrbitControls(camera, renderer.domElement);
+
+        window.addEventListener("resize", redimensionar);
+
+        function redimensionar() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.render(scene, camera);
+        }
+
+        var vel = 0.01;
+        var limite = 4;
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            //cube.position.x += vel;
+            //cube.rotation.x += vel;
+
+            scene.traverse(function (pular) {
+
+                pular.rotation.x += 0.01;
+                pular.rotation.y += 0.01;
+                pular.rotation.z += 0.01;
+
+            });
+
+            if (cube.position.x > limite || cube.position.x < -limite) {
+
+                vel = -vel;
+
+            }
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+
+    </script>
+
+</body>
+
+</html>
