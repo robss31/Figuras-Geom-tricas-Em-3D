@@ -21,13 +21,17 @@ h1 {
     margin: 0 auto;
     margin-top: 5px;
     margin-bottom: 10px;
+<<<<<<< HEAD
     font-size: 18px;
+=======
+    font-size: 18px
+>>>>>>> fcbe5528e48629e23362096e8d0c425732b64554
 }
 
 #send {
-    width: 200px;
+    width: 100px;
     height: 30px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
     border-radius: 20px;
     margin: 0 auto;
@@ -35,6 +39,7 @@ h1 {
     background: linear-gradient(rgb(144, 144, 137), rgb(174, 174, 60), rgb(95, 107, 41));
 }
 
+<<<<<<< HEAD
 @media( max-width: 700px){
     h1{
         color: aliceblue;
@@ -44,3 +49,8 @@ h1 {
         width: 20%;
     }
 }
+=======
+body::after {
+    margin-top: 0px;
+}
+>>>>>>> fcbe5528e48629e23362096e8d0c425732b64554
