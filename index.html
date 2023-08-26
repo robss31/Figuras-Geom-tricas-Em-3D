@@ -66,7 +66,7 @@
             audioLoader.load('./som/musica.mp3', function (buffer) {
                 sound.setBuffer(buffer);
                 sound.setLoop(true);
-                sound.setVolume(0.5);
+                sound.setVolume(0.03);
                 sound.play();
             });
 
@@ -127,8 +127,6 @@
 
             camera.position.z = 20;
 
-            var controls = new OrbitControls(camera, renderer.domElement);
-
             window.addEventListener("resize", redimensionar);
 
             function redimensionar() {
@@ -144,9 +142,6 @@
             function animate() {
                 requestAnimationFrame(animate);
 
-                //cube.position.x += vel;
-                //cube.rotation.x += vel;
-
                 scene.traverse(function (pular) {
 
                     pular.rotation.x += 0.01;
@@ -154,12 +149,6 @@
                     pular.rotation.z += 0.01;
 
                 });
-
-                //if (cube.position.x > limite || cube.position.x < -limite) {
-
-                    //vel = -vel;
-
-                //}
 
                 renderer.render(scene, camera);
             }
